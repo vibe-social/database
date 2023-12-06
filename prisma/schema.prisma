@@ -311,7 +311,7 @@ model users {
 
     Events        events[]        @ignore
     Subscriptions subscriptions[] @ignore
-    Client        client?         @ignore
+    Client        clients?         @ignore
 
     @@index([instance_id])
     @@schema("auth")
