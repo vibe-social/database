@@ -41,6 +41,20 @@ model clients {
     @@schema("public")
 }
 
+model updates {
+    id          Int      @id @default(autoincrement())
+    mood        String
+    latitude    Float
+    longitude   Float
+    description String?
+    timestamp   DateTime @default(now())
+
+    User    users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+    user_id String @db.Uuid
+
+    @@schema("public")
+}
+
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model audit_log_entries {
     instance_id String?   @db.Uuid
@@ -312,6 +326,7 @@ model users {
     Events        events[]        @ignore
     Subscriptions subscriptions[] @ignore
     Client        clients?        @ignore
+    Updates       updates[]       @ignore
 
     @@index([instance_id])
     @@schema("auth")
